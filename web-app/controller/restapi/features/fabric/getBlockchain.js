@@ -1,16 +1,33 @@
 const Fabric_Client = require('fabric-client');
+const fs = require('fs');
 var path = require('path');
 
 var fabric_client = new Fabric_Client();
 
+// capture network variables from config.json
+const configDirectory = path.join(process.cwd(), 'controller/restapi/features/fabric');
+const configPath = path.join(configDirectory, 'config.json');
+const configJSON = fs.readFileSync(configPath, 'utf8');
+const config = JSON.parse(configJSON);
+
+var peerName = config.peerName;
+var ordererName = config.ordererName;
+var userName = config.userName;
+var channelName = config.channel_name;
+
+const ccpFile = config.connection_file;
+const ccpPath = path.join(configDirectory, ccpFile);
+const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
+const ccp = JSON.parse(ccpJSON);
+
 // setup the fabric network
-var channel = fabric_client.newChannel('mychannel');
-var peer = fabric_client.newPeer('grpc://localhost:17051');
+var channel = fabric_client.newChannel(channelName);
+var peer = fabric_client.newPeer(ccp.peers[peerName].url);
 channel.addPeer(peer);
-var order = fabric_client.newOrderer('grpc://localhost:17050')
+var order = fabric_client.newOrderer(ccp.orderers[ordererName].url)
 channel.addOrderer(order);
 
-var store_path = path.join(__dirname, '_idwallet', 'User1@org1.example.com');
+var store_path = path.join(__dirname, '_idwallet', userName);
 //console.log('Store path:'+store_path);
 
 exports.getBlockchain = async function(req, res, next) {
@@ -33,13 +50,13 @@ exports.getBlockchain = async function(req, res, next) {
     fabric_client.setCryptoSuite(crypto_suite);
 
     // get the enrolled user from persistence, this user will sign all requests
-    user_from_store = await fabric_client.getUserContext('User1@org1.example.com', true);
+    user_from_store = await fabric_client.getUserContext(userName, true);
 
     if (user_from_store && user_from_store.isEnrolled()) {
       //console.log('Successfully loaded User1@org1.example.com from persistence');
       member_user = user_from_store;
     } else {
-      throw new Error('Failed to get User1@org1.example.com.... run registerUser.js');
+      throw new Error('Failed to get ' + userName + '.... run registerUser.js');
     }
 
     blockchainInfo = await channel.queryInfo();

@@ -25,7 +25,16 @@ const { FileSystemWallet, Gateway } = require('fabric-network');
 let walletDir = path.join(path.dirname(require.main.filename),'controller/restapi/features/fabric/_idwallet');
 const wallet = new FileSystemWallet(walletDir);
 
-const ccpPath = path.resolve(__dirname, 'connection.json');
+const configDirectory = path.join(process.cwd(), 'controller/restapi/features/fabric');
+const configPath = path.join(configDirectory, 'config.json');
+const configJSON = fs.readFileSync(configPath, 'utf8');
+const config = JSON.parse(configJSON);
+var userName = config.userName;
+var channelName = config.channel_name;
+var smartContractName = config.smart_contract_name;
+
+const ccpFile = config.connection_file;
+const ccpPath = path.join(configDirectory, ccpFile);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
@@ -72,13 +81,13 @@ exports.getMembers = async function(req, res, next) {
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: 'User1@org1.example.com', discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: userName, discovery: { enabled: false } });
 
         // Get addressability to network
-        const network = await gateway.getNetwork('mychannel');
+        const network = await gateway.getNetwork(channelName);
 
         // Get addressability to  contract
-        const contract = await network.getContract('globalfinancing');
+        const contract = await network.getContract(smartContractName);
                 
         switch (req.body.registry)
         {
@@ -161,13 +170,13 @@ exports.getAssets = async function(req, res, next) {
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: 'User1@org1.example.com', discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: userName, discovery: { enabled: false } });
 
         // Get addressability to network
-        const network = await gateway.getNetwork('mychannel');
+        const network = await gateway.getNetwork(channelName);
 
         // Get addressability to  contract
-        const contract = await network.getContract('globalfinancing');
+        const contract = await network.getContract(smartContractName);
         
         const responseBuyer = await contract.evaluateTransaction('GetState', "buyers");
         console.log('responseBuyer: ');
@@ -226,13 +235,13 @@ exports.addMember = async function(req, res, next) {
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: 'User1@org1.example.com', discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: userName, discovery: { enabled: false } });
 
         // Get addressability to network
-        const network = await gateway.getNetwork('mychannel');
+        const network = await gateway.getNetwork(channelName);
 
         // Get addressability to  contract
-        const contract = await network.getContract('globalfinancing');        
+        const contract = await network.getContract(smartContractName);        
 
         switch (req.body.type)
         {
