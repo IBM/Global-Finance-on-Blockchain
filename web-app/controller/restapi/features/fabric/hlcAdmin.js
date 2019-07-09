@@ -33,6 +33,9 @@ var userName = config.userName;
 var channelName = config.channel_name;
 var smartContractName = config.smart_contract_name;
 
+var gatewayDiscoveryEnabled = "enabled" in config.gatewayDiscovery?config.gatewayDiscovery.enabled:true;
+var gatewayDiscoveryAsLocalhost = "asLocalHost" in config.gatewayDiscovery?config.gatewayDiscovery.asLocalhost:true;
+
 const ccpFile = config.connection_file;
 const ccpPath = path.join(configDirectory, ccpFile);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
@@ -81,7 +84,7 @@ exports.getMembers = async function(req, res, next) {
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: userName, discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: userName, discovery: { enabled: gatewayDiscoveryEnabled, asLocalHost: gatewayDiscoveryAsLocalhost } });
 
         // Get addressability to network
         const network = await gateway.getNetwork(channelName);
@@ -170,7 +173,7 @@ exports.getAssets = async function(req, res, next) {
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: userName, discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: userName, discovery: { enabled: gatewayDiscoveryEnabled, asLocalHost: gatewayDiscoveryAsLocalhost } });
 
         // Get addressability to network
         const network = await gateway.getNetwork(channelName);
@@ -235,7 +238,7 @@ exports.addMember = async function(req, res, next) {
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: userName, discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: userName, discovery: { enabled: gatewayDiscoveryEnabled, asLocalHost: gatewayDiscoveryAsLocalhost } });
 
         // Get addressability to network
         const network = await gateway.getNetwork(channelName);

@@ -26,6 +26,7 @@
     "date-format": "",
     "ejs": "",
     "express": "^4.15.4",
+    "fabric-client": "^1.4.3",
     "fabric-network": "~1.4.0",
     "http": "0.0.0",
     "https": "^1.0.0",

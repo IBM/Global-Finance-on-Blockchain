@@ -9,5 +9,5 @@
     "peerName": "peer0.org1.example.com",
     "ordererName": "orderer.example.com",
     "userName": "User1@org1.example.com",
-    "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
+    "gatewayDiscovery": { "enabled": false }
 }
