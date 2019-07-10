@@ -36,7 +36,7 @@ const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
 var channelName = config.channel_name;
 var smartContractName = config.smart_contract_name;
-var userName = config.userName;
+var userName = config.appAdmin;
 
 var gatewayDiscoveryEnabled = "enabled" in config.gatewayDiscovery?config.gatewayDiscovery.enabled:true;
 var gatewayDiscoveryAsLocalhost = "asLocalHost" in config.gatewayDiscovery?config.gatewayDiscovery.asLocalhost:true;

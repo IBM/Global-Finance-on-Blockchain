@@ -32,7 +32,7 @@ const configDirectory = path.join(process.cwd(), 'controller/restapi/features/fa
 const configPath = path.join(configDirectory, 'config.json');
 const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
-var userName = config.userName;
+var userName = config.appAdmin;
 var channelName = config.channel_name;
 var smartContractName = config.smart_contract_name;
 
