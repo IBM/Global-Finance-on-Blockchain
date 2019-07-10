@@ -27,9 +27,6 @@ channel.addPeer(peer);
 var order = fabric_client.newOrderer(ccp.orderers[ordererName].url, {'pem': ccp.orderers[ordererName].tlsCACerts.pem});
 channel.addOrderer(order);
 
-var store_path = path.join(__dirname, '_idwallet', userName);
-//console.log('Store path:'+store_path);
-
 exports.getBlockchain = async function(req, res, next) {
   try {
 
