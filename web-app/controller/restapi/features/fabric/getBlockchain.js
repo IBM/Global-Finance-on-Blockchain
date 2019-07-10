@@ -12,7 +12,7 @@ const config = JSON.parse(configJSON);
 
 var peerName = config.peerName;
 var ordererName = config.ordererName;
-var userName = config.userName;
+var userName = config.appAdmin;
 var channelName = config.channel_name;
 
 const ccpFile = config.connection_file;
@@ -22,9 +22,9 @@ const ccp = JSON.parse(ccpJSON);
 
 // setup the fabric network
 var channel = fabric_client.newChannel(channelName);
-var peer = fabric_client.newPeer(ccp.peers[peerName].url);
+var peer = fabric_client.newPeer(ccp.peers[peerName].url, {'pem': ccp.peers[peerName].tlsCACerts.pem});
 channel.addPeer(peer);
-var order = fabric_client.newOrderer(ccp.orderers[ordererName].url)
+var order = fabric_client.newOrderer(ccp.orderers[ordererName].url, {'pem': ccp.orderers[ordererName].tlsCACerts.pem});
 channel.addOrderer(order);
 
 var store_path = path.join(__dirname, '_idwallet', userName);
@@ -35,28 +35,12 @@ exports.getBlockchain = async function(req, res, next) {
 
     var returnBlockchain = [];
 
-    var state_store = await Fabric_Client.newDefaultKeyValueStore({
-      path: store_path
-    });
-
-    fabric_client.setStateStore(state_store);
-    var crypto_suite = Fabric_Client.newCryptoSuite();
-    // use the same location for the state store (where the users' certificate are kept)
-    // and the crypto store (where the users' keys are kept)
-    var crypto_store = Fabric_Client.newCryptoKeyStore({
-      path: store_path
-    });
-    crypto_suite.setCryptoKeyStore(crypto_store);
-    fabric_client.setCryptoSuite(crypto_suite);
-
-    // get the enrolled user from persistence, this user will sign all requests
-    user_from_store = await fabric_client.getUserContext(userName, true);
-
-    if (user_from_store && user_from_store.isEnrolled()) {
-      //console.log('Successfully loaded User1@org1.example.com from persistence');
-      member_user = user_from_store;
-    } else {
-      throw new Error('Failed to get ' + userName + '.... run registerUser.js');
+    // Check to see if we've already enrolled the user.
+    const userExists = await wallet.exists(userName);
+    if (!userExists) {
+        console.log('An identity for the user ' + userName + ' does not exist in the wallet');
+        console.log('Run the enrollAdmin.js before retrying');
+        res.send({'error': 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
     }
 
     blockchainInfo = await channel.queryInfo();

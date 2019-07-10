@@ -1,13 +1,12 @@
 {
     "channel_name": "mychannel",
     "smart_contract_name": "globalfinancing",
-    "connection_file": "connection.json",
+    "connection_file": "mychannel_globalfinancing_profile.json",
     "appAdmin": "app-admin",
     "appAdminSecret": "app-adminpw",
     "orgMSPID": "Org1MSP",
-    "caName": "ca.example.com",
-    "peerName": "peer0.org1.example.com",
-    "ordererName": "orderer.example.com",
-    "userName": "User1@org1.example.com",
-    "gatewayDiscovery": { "enabled": false }
+    "caName": "184.172.229.220:31844",
+    "peerName": "184.172.229.220:30884",
+    "ordererName": "184.172.229.220:32685",
+    "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
 }

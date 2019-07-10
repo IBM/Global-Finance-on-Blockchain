@@ -82,6 +82,14 @@ exports.getMembers = async function(req, res, next) {
     // Main try/catch block
     try {
 
+        // Check to see if we've already enrolled the user.
+        const userExists = await wallet.exists(userName);
+        if (!userExists) {
+            console.log('An identity for the user ' + userName + ' does not exist in the wallet');
+            console.log('Run the enrollAdmin.js before retrying');
+            res.send({'error': 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
+        }
+
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
         await gateway.connect(ccp, { wallet, identity: userName, discovery: { enabled: gatewayDiscoveryEnabled, asLocalHost: gatewayDiscoveryAsLocalhost } });
@@ -171,6 +179,14 @@ exports.getAssets = async function(req, res, next) {
     // Main try/catch block
     try {
 
+        // Check to see if we've already enrolled the user.
+        const userExists = await wallet.exists(userName);
+        if (!userExists) {
+            console.log('An identity for the user ' + userName + ' does not exist in the wallet');
+            console.log('Run the enrollAdmin.js before retrying');
+            res.send({'error': 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
+        }
+
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
         await gateway.connect(ccp, { wallet, identity: userName, discovery: { enabled: gatewayDiscoveryEnabled, asLocalHost: gatewayDiscoveryAsLocalhost } });
@@ -235,6 +251,14 @@ exports.addMember = async function(req, res, next) {
 
     // Main try/catch block
     try {
+
+        // Check to see if we've already enrolled the user.
+        const userExists = await wallet.exists(userName);
+        if (!userExists) {
+            console.log('An identity for the user ' + userName + ' does not exist in the wallet');
+            console.log('Run the enrollAdmin.js before retrying');
+            res.send({'error': 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
+        }
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
