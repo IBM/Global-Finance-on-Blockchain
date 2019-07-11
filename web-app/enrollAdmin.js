@@ -15,17 +15,21 @@ const configPath = path.join(configDirectory, 'config.json');
 const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
 
-var appAdmin = config.appAdmin;
-var appAdminSecret = config.appAdminSecret;
-var orgMSPID = config.orgMSPID;
-var caName = config.caName;
+let appAdmin = config.appAdmin;
+let appAdminSecret = config.appAdminSecret;
+let orgMSPID = config.orgMSPID;
+let caName = config.caName;
 
 const ccpFile = config.connection_file;
 const ccpPath = path.join(configDirectory, ccpFile);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
-
+/**
+ * enrollAdmin picks the appAdmin and appAdmin from the config.json to enroll the admin and import the new identity to the wallet
+ *
+ * @function
+ */
 async function main() {
     try {
 

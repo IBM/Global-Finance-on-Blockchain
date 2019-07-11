@@ -29,12 +29,12 @@ const configDirectory = path.join(process.cwd(), 'controller/restapi/features/fa
 const configPath = path.join(configDirectory, 'config.json');
 const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
-var userName = config.appAdmin;
-var channelName = config.channel_name;
-var smartContractName = config.smart_contract_name;
+let userName = config.appAdmin;
+let channelName = config.channel_name;
+let smartContractName = config.smart_contract_name;
 
-var gatewayDiscoveryEnabled = "enabled" in config.gatewayDiscovery?config.gatewayDiscovery.enabled:true;
-var gatewayDiscoveryAsLocalhost = "asLocalHost" in config.gatewayDiscovery?config.gatewayDiscovery.asLocalhost:true;
+let gatewayDiscoveryEnabled = 'enabled' in config.gatewayDiscovery?config.gatewayDiscovery.enabled:true;
+let gatewayDiscoveryAsLocalhost = 'asLocalHost' in config.gatewayDiscovery?config.gatewayDiscovery.asLocalhost:true;
 
 const ccpFile = config.connection_file;
 const ccpPath = path.join(configDirectory, ccpFile);
@@ -47,20 +47,20 @@ const ccp = JSON.parse(ccpJSON);
  * @param {express.req} req - the inbound request object from the client
  * @param {express.res} res - the outbound response object for communicating back to client
  * @param {express.next} next - an express service to enable post processing prior to responding to the client
- * @returns {Object} array of registries
+ * @exports {Object} array of registries
  * @function
  */
 exports.getRegistries = function(req, res, next)
 {
-    var allRegistries = [ 
+    let allRegistries = [
         [ 'Buyer' ],
         [ 'FinanceCo' ],
         [ 'Provider' ],
         [ 'Seller' ],
-        [ 'Shipper' ] 
+        [ 'Shipper' ]
     ];
     res.send({'result': 'success', 'registries': allRegistries});
-   
+
 };
 
 
@@ -99,50 +99,55 @@ exports.getMembers = async function(req, res, next) {
 
         // Get addressability to  contract
         const contract = await network.getContract(smartContractName);
-                
+
         switch (req.body.registry)
         {
-            case 'Buyer':
-                const responseBuyer = await contract.evaluateTransaction('GetState', "buyers");
-                console.log('responseBuyer: ');
-                console.log(JSON.parse(responseBuyer.toString()));
-                members = JSON.parse(JSON.parse(responseBuyer.toString()));
-                break;            
-            case 'Seller':
-                const responseSeller = await contract.evaluateTransaction('GetState', "sellers");
-                console.log('responseSeller: ');
-                console.log(JSON.parse(responseSeller.toString()));
-                members = JSON.parse(JSON.parse(responseSeller.toString()));
-                break;
-            case 'Provider':
-                const responseProvider = await contract.evaluateTransaction('GetState', "providers");
-                console.log('responseProvider: ');
-                console.log(JSON.parse(responseProvider.toString()));
-                members = JSON.parse(JSON.parse(responseProvider.toString()));
-                break; 
-            case 'Shipper':
-                const responseShipper = await contract.evaluateTransaction('GetState', "shippers");
-                console.log('responseShipper: ');
-                console.log(JSON.parse(responseShipper.toString()));
-                members = JSON.parse(JSON.parse(responseShipper.toString()));                
-                break; 
-            case 'FinanceCo':
-                const responseFinanceCo = await contract.evaluateTransaction('GetState', "financeCos");
-                console.log('responseFinanceCo: ');
-                console.log(JSON.parse(responseFinanceCo.toString()));
-                members = JSON.parse(JSON.parse(responseFinanceCo.toString()));
-                break; 
-            default:
-                res.send({'error': 'body registry not found'});
+        case 'Buyer': {
+            const responseBuyer = await contract.evaluateTransaction('GetState', 'buyers');
+            console.log('responseBuyer: ');
+            console.log(JSON.parse(responseBuyer.toString()));
+            members = JSON.parse(JSON.parse(responseBuyer.toString()));
         }
-        
+            break;
+        case 'Seller': {
+            const responseSeller = await contract.evaluateTransaction('GetState', 'sellers');
+            console.log('responseSeller: ');
+            console.log(JSON.parse(responseSeller.toString()));
+            members = JSON.parse(JSON.parse(responseSeller.toString()));
+        }
+            break;
+        case 'Provider': {
+            const responseProvider = await contract.evaluateTransaction('GetState', 'providers');
+            console.log('responseProvider: ');
+            console.log(JSON.parse(responseProvider.toString()));
+            members = JSON.parse(JSON.parse(responseProvider.toString()));
+        }
+            break;
+        case 'Shipper': {
+            const responseShipper = await contract.evaluateTransaction('GetState', 'shippers');
+            console.log('responseShipper: ');
+            console.log(JSON.parse(responseShipper.toString()));
+            members = JSON.parse(JSON.parse(responseShipper.toString()));
+        }
+            break;
+        case 'FinanceCo': {
+            const responseFinanceCo = await contract.evaluateTransaction('GetState', 'financeCos');
+            console.log('responseFinanceCo: ');
+            console.log(JSON.parse(responseFinanceCo.toString()));
+            members = JSON.parse(JSON.parse(responseFinanceCo.toString()));
+        }
+            break;
+        default:
+            res.send({'error': 'body registry not found'});
+        }
+
         // Get state of the members
-        for (const member of members) { 
+        for (const member of members) {
             const response = await contract.evaluateTransaction('GetState', member);
             console.log('response: ');
             console.log(JSON.parse(response.toString()));
-            var _jsn = JSON.parse(JSON.parse(response.toString()));                       
-            allMembers.push(_jsn); 
+            let _jsn = JSON.parse(JSON.parse(response.toString()));
+            allMembers.push(_jsn);
         }
 
         // Disconnect from the gateway
@@ -150,13 +155,12 @@ exports.getMembers = async function(req, res, next) {
         console.log('getMembers Complete');
         await gateway.disconnect();
         res.send({'result': 'success', 'members': allMembers});
-                
+
     } catch (error) {
         console.log(`Error processing transaction. ${error}`);
         console.log(error.stack);
         res.send({'error': error.stack});
-    } 
-         
+    }
 };
 
 
@@ -196,40 +200,40 @@ exports.getAssets = async function(req, res, next) {
 
         // Get addressability to  contract
         const contract = await network.getContract(smartContractName);
-        
-        const responseBuyer = await contract.evaluateTransaction('GetState', "buyers");
+
+        const responseBuyer = await contract.evaluateTransaction('GetState', 'buyers');
         console.log('responseBuyer: ');
         console.log(JSON.parse(responseBuyer.toString()));
-        var buyers = JSON.parse(JSON.parse(responseBuyer.toString()));
+        let buyers = JSON.parse(JSON.parse(responseBuyer.toString()));
 
-        for (let buyer of buyers) { 
+        for (let buyer of buyers) {
             const buyerResponse = await contract.evaluateTransaction('GetState', buyer);
             console.log('response: ');
             console.log(JSON.parse(buyerResponse.toString()));
-            var _buyerjsn = JSON.parse(JSON.parse(buyerResponse.toString()));       
-            
-            for (let orderNo of _buyerjsn.orders) { 
+            let _buyerjsn = JSON.parse(JSON.parse(buyerResponse.toString()));
+
+            for (let orderNo of _buyerjsn.orders) {
                 const response = await contract.evaluateTransaction('GetState', orderNo);
                 console.log('response: ');
                 console.log(JSON.parse(response.toString()));
-                var _jsn = JSON.parse(JSON.parse(response.toString()));
-                var _jsnItems = JSON.parse(_jsn.items);
+                let _jsn = JSON.parse(JSON.parse(response.toString()));
+                let _jsnItems = JSON.parse(_jsn.items);
                 _jsn.items = _jsnItems;
-                allOrders.push(_jsn);            
-            }                           
+                allOrders.push(_jsn);
+            }
         }
-        
+
         // Disconnect from the gateway
         console.log('Disconnect from Fabric gateway.');
         console.log('getAssets Complete');
         await gateway.disconnect();
         res.send({'result': 'success', 'orders': allOrders});
-        
+
     } catch (error) {
         console.log(`Error processing transaction. ${error}`);
         console.log(error.stack);
         res.send({'error': error.stack});
-    } 
+    }
 };
 
 
@@ -268,63 +272,68 @@ exports.addMember = async function(req, res, next) {
         const network = await gateway.getNetwork(channelName);
 
         // Get addressability to  contract
-        const contract = await network.getContract(smartContractName);        
+        const contract = await network.getContract(smartContractName);
 
         switch (req.body.type)
         {
-            case 'Buyer':
-                const responseBuyer = await contract.evaluateTransaction('GetState', "buyers");
-                members = JSON.parse(JSON.parse(responseBuyer.toString()));
-                break;            
-            case 'Seller':
-                const responseSeller = await contract.evaluateTransaction('GetState', "sellers");
-                members = JSON.parse(JSON.parse(responseSeller.toString()));
-                break;
-            case 'Provider':
-                const responseProvider = await contract.evaluateTransaction('GetState', "providers");
-                members = JSON.parse(JSON.parse(responseProvider.toString()));
-                break; 
-            case 'Shipper':
-                const responseShipper = await contract.evaluateTransaction('GetState', "shippers");
-                members = JSON.parse(JSON.parse(responseShipper.toString()));
-                break; 
-            case 'FinanceCo':
-                const responseFinanceCo = await contract.evaluateTransaction('GetState', "financeCos");
-                members = JSON.parse(JSON.parse(responseFinanceCo.toString()));
-                break; 
-            default:
-                res.send({'error': 'body type not found'});
+        case 'Buyer': {
+            const responseBuyer = await contract.evaluateTransaction('GetState', 'buyers');
+            members = JSON.parse(JSON.parse(responseBuyer.toString()));
+        }
+            break;
+        case 'Seller': {
+            const responseSeller = await contract.evaluateTransaction('GetState', 'sellers');
+            members = JSON.parse(JSON.parse(responseSeller.toString()));
+        }
+            break;
+        case 'Provider': {
+            const responseProvider = await contract.evaluateTransaction('GetState', 'providers');
+            members = JSON.parse(JSON.parse(responseProvider.toString()));
+        }
+            break;
+        case 'Shipper': {
+            const responseShipper = await contract.evaluateTransaction('GetState', 'shippers');
+            members = JSON.parse(JSON.parse(responseShipper.toString()));
+        }
+            break;
+        case 'FinanceCo': {
+            const responseFinanceCo = await contract.evaluateTransaction('GetState', 'financeCos');
+            members = JSON.parse(JSON.parse(responseFinanceCo.toString()));
+        }
+            break;
+        default:
+            res.send({'error': 'body type not found'});
         }
 
-        for (let member of members) { 
-            if (member == req.body.id) {
+        for (let member of members) {
+            if (member === req.body.id) {
                 res.send({'error': 'member id already exists'});
             }
         }
-        
+
         console.log('\nreq.body.id: ' + req.body.id);
         console.log('member.type: ' + req.body.type);
         console.log('member.companyName: ' + req.body.companyName);
 
-        var transaction = 'Register' + req.body.type;
+        let transaction = 'Register' + req.body.type;
         console.log('transaction: ' + transaction);
-                    
+
         //register
         const response = await contract.submitTransaction(transaction, req.body.id, req.body.companyName);
-        console.log('transaction response: ')
-        console.log(JSON.parse(response.toString()));  
+        console.log('transaction response: ');
+        console.log(JSON.parse(response.toString()));
 
         // Disconnect from the gateway
         console.log('Disconnect from Fabric gateway.');
         console.log('AutoLoad Complete');
         await gateway.disconnect();
         res.send(req.body.companyName+' successfully added');
-   
+
     } catch (error) {
         console.log(`Error processing transaction. ${error}`);
         console.log(error.stack);
         res.send({'error': error.stack});
-    } 
-    
+    }
+
 };
 

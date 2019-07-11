@@ -21,8 +21,6 @@ const http = require('http');
 const ws = require('websocket').server;
 // const https = require('https');
 const path = require('path');
-const fs = require('fs');
-const mime = require('mime');
 const bodyParser = require('body-parser');
 const cfenv = require('cfenv');
 
@@ -80,10 +78,10 @@ app.locals.wsServer.on('request', function(request)
         // remove user from the list of connected clients
         // each browser connection has a unique address and socket combination
         // When a browser session is disconnected, remove it from the array so we don't waste processing time sending messages to empty queues.
-        for (let each in clients)
-            {(function(_idx, _arr)
-                {if ((_arr[_idx].socket._peername.address === app.locals.connection.socket._peername.address) && (_arr[_idx].socket._peername.port === app.locals.connection.socket._peername.port))
-                    {clients.splice(_idx, 1);}
+        for (let each in clients){
+            (function(_idx, _arr){
+                if ((_arr[_idx].socket._peername.address === app.locals.connection.socket._peername.address) && (_arr[_idx].socket._peername.port === app.locals.connection.socket._peername.port)){
+                    clients.splice(_idx, 1);}
             })(each, clients);}
     });
 });
@@ -101,24 +99,4 @@ app.locals.processMessages = processMessages;
 // now set up the http server
 server.on( 'request', app );
 server.listen(appEnv.port, function() {console.log('Listening locally on port %d', server.address().port);});
-/**
- * load any file requested on the server
- * @param {express.req} req - the inbound request object from the client
- * @param {express.res} res - the outbound response object for communicating back to client
- * @function
- */
-function loadSelectedFile(req, res) {
-    let uri = req.originalUrl;
-    let filename = __dirname + '/HTML' + uri;
-    fs.readFile(filename,
-        function(err, data) {
-            if (err) {
-                console.log('Error loading ' + filename + ' error: ' + err);
-                return res.status(500).send('Error loading ' + filename);
-            }
-            let type = mime.lookup(filename);
-            res.setHeader('content-type', type);
-            res.writeHead(200);
-            res.end(data);
-        });
-}
+
