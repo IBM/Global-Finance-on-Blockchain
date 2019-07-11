@@ -4,7 +4,6 @@
 
 'use strict';
 
-const { FileSystemWallet } = require('fabric-network');
 const Fabric_Client = require('fabric-client');
 const fs = require('fs');
 let path = require('path');
@@ -34,22 +33,35 @@ channel.addPeer(peer);
 let order = fabric_client.newOrderer(ccp.orderers[ordererName].url, {'pem': ccp.orderers[ordererName].tlsCACerts.pem});
 channel.addOrderer(order);
 
+let store_path = path.join(__dirname, '_idwallet', userName);
+//console.log('Store path:'+store_path);
+
 exports.getBlockchain = async function(req, res, next) {
     try {
 
         let returnBlockchain = [];
 
-        // Create a new file system based wallet for managing identities.
-        const walletPath = path.join(configDirectory, '_idwallet');
-        const wallet = new FileSystemWallet(walletPath);
-        console.log(`Wallet path: ${walletPath}`);
+        let state_store = await Fabric_Client.newDefaultKeyValueStore({
+            path: store_path
+        });
 
-        // Check to see if we've already enrolled the user.
-        const userExists = await wallet.exists(userName);
-        if (!userExists) {
-            console.log('An identity for the user ' + userName + ' does not exist in the wallet');
-            console.log('Run the enrollAdmin.js before retrying');
-            res.send({'error': 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
+        fabric_client.setStateStore(state_store);
+        let crypto_suite = Fabric_Client.newCryptoSuite();
+        // use the same location for the state store (where the users' certificate are kept)
+        // and the crypto store (where the users' keys are kept)
+        let crypto_store = Fabric_Client.newCryptoKeyStore({
+            path: store_path
+        });
+        crypto_suite.setCryptoKeyStore(crypto_store);
+        fabric_client.setCryptoSuite(crypto_suite);
+
+        // get the enrolled user from persistence, this user will sign all requests
+        let user_from_store = await fabric_client.getUserContext(userName, true);
+
+        if (user_from_store && user_from_store.isEnrolled()) {
+            //console.log('Successfully loaded `userName` from persistence');
+        } else {
+            throw new Error('Failed to get ' + userName + '.... run registerUser.js');
         }
 
         let blockchainInfo = await channel.queryInfo();
