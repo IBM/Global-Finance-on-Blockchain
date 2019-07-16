@@ -4,13 +4,13 @@
 
 In this code pattern, we will be extending the [global-financing-blockchain](https://developer.ibm.com/patterns/global-financing-use-case-for-blockchain) code pattern by deploying the smart contract on a Hyperledger Fabric Network created on IBM Blockchain Platform instead of a local instance of the Hyperledger Fabric. This use case is inspired by the [RedBook tutorial](https://www.redbooks.ibm.com/Redbooks.nsf/RedbookAbstracts/crse0401.html?Open) by Bob Dill and uses the same application interface. It employs a Node.js smart contract and a Node.js web application.
 
-The Global Finance use case involves various members such as the Buyer, Seller, Provider, Shipper and Finance Company which perform the following actions:
+The Global Finance use case involves various members such as the Buyer, Seller, Provider, Shipper and Finance Company which perform many actions. Some of these actions are:
 
-    Buyer creates the order.
-    Seller contacts a provider for the items in the order.
-    Provider provides the items in the order.
-    Shipper delivers the items in the order.
-    Finance company processes payments to the seller.
+* Buyer creates the order.
+* Seller contacts a provider for the items in the order.
+* Provider provides the items in the order.
+* Shipper delivers the items in the order.
+* Finance company processes payments to the seller.
 
 The number of participants in this use case, as well as the different types of transactions that can be executed show how this is the perfect use case to demonstrate dispute resolution using the smart contracts and distributed ledgers provided by Blockchain. Blockchain also enables faster settlement of such disputes as opposed to the traditional approaches employed for such a use case.
 
@@ -18,9 +18,9 @@ We will start by packaging the Node.js smart contract using the IBM Blockchain P
 
 When you have completed this code pattern, you will understand how to:
 
-* Package a blockchain smart contract using the IBM Blockchain Platform Extension for VS Code
-* Set up a Hyperledger Fabric network on IBM Blockchain Platform
-* Install and instantiate a smart contract package through IBM Blockchain Platform
+* Package a blockchain smart contract using the IBM Blockchain Platform Extension for VS Code.
+* Set up a Hyperledger Fabric network on IBM Blockchain Platform.
+* Install and instantiate a smart contract package through IBM Blockchain Platform.
 * Test the blockchain network by executing a Node.js application with the Hyperledger Fabric SDK to interact with the deployed network by issuing transactions. 
 
 
@@ -107,7 +107,7 @@ Now, we will start setting up and configuring our Hyperledger Fabric network on 
 
 ### 3. Create IBM Cloud services
 
-* Create the [IBM Cloud Kubernetes Service](https://cloud.ibm.com/catalog/infrastructure/containers-kubernetes). You can find the service in the `Catalog`. For this code pattern, we can use the `Free` cluster, and give it a name. Note, that the IBM Cloud allows one instance of a free cluster and expires after 30 days. **Note: it could take 20 minutes for the Kubernetes Service setup to complete**.
+* Create the [IBM Cloud Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster). You can find the service in the `Catalog`. For this code pattern, we can use the `Free` cluster, and give it a name. Note, that the IBM Cloud allows one instance of a free cluster which expires after 30 days. **Note: it could take 20 minutes for the Kubernetes Service setup to complete**.
 
 <br>
 <p align="center">
@@ -115,7 +115,7 @@ Now, we will start setting up and configuring our Hyperledger Fabric network on 
 </p>
 <br>
 
-* Create the [IBM Blockchain Platform 2.0](https://cloud.ibm.com/catalog/services/blockchain-platform) service on the IBM Cloud. You can find the service in the `Catalog`, and give a name.
+* Create the [IBM Blockchain Platform 2.0](https://cloud.ibm.com/catalog/services/blockchain-platform) service on the IBM Cloud. You can find the service in the `Catalog`, and give it a name.
 
 <br>
 <p align="center">
@@ -257,7 +257,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 #### Add organization as Consortium Member on the orderer to transact
   - Navigate to the <b>Nodes</b> tab, and click on the <b>Orderer</b> that we created.
   - Under <b>Consortium Members</b>, click <b>Add organization</b>.
-  - From the drop-down list, select `Org1MSP`, as this is the MSP that represents the peer's organization org1.
+  - From the drop-down list, select `Org1MSP`, as this is the MSP that represents the peer's organization "Org1".
   - Click <b>Add organization</b>.
 
 <br>
@@ -286,7 +286,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
   - Click <b>Join channel</b> to add a peer to the channel.
   - Select your `Orderer` as the <b>Ordering service</b> and click <b>Next</b>.
   - Enter the name of the <b>Channel</b> as `mychannel` and click <b>Next</b>.
-  - Next we need to select which peers should be added to the channel. In our case, we just want to add the peer we created under "org1". Select `Peer Org1` .
+  - Next we need to select which peers should be added to the channel. In our case, we just want to add the peer we created under "Org1". Select `Peer Org1` .
   - Click <b>Join channel</b>.
 
 <br>
@@ -296,11 +296,11 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 <br>
 
 
-### 5. Deploy Blockchain Network Smart Contract on the network
+### 5. Deploy Global Finance Smart Contract on the network
 
 #### Install a smart contract
   - Navigate to the <b>Smart contracts</b> tab in the left navigation and click <b>Install smart contract</b>.
-  - Browse to the location of the Global Finance smart contract package file (it is probably named `globalfinancing@0.0.1.cds`), which we packaged earlier using the Visual Studio code extension.
+  - Browse to the location of the Global Finance smart contract package file (it is probably named `globalfinancing@0.0.1.cds`), which we packaged earlier using the IBM Blockchain Platform extension for Visual Studio code.
   - Click on <b>Add file</b> and find your packaged smart contract. 
   - Once the contract is uploaded, click <b>Install smart contract</b>.
 
@@ -315,7 +315,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
   - On the side panel that opens, select the channel, `mychannel`  on which to instantiate the smart contract. Click <b>Next</b>.
   - Select the organization members to be included in the endorsement policy. In our case, we need to select `Org1MSP`. Click <b>Next</b>.
   - We can skip the <b>Setup private data collection</b> step and simply click <b>Next</b>.
-  - Give the <b>Function name</b> of `instantiate` and leave <b>Arguments</b> blank. **Note:** `instantiate` is the method in the `globalfinance.js` contract file that initiates the smart contracts on the peer. Some may name this `initLedger`.
+  - Give the <b>Function name</b> of `instantiate` and leave <b>Arguments</b> blank. **Note: `instantiate` is the method in the `globalfinance.js` contract file that initiates the smart contracts on the peer. Some may name this `initLedger`**.
   - Click <b>Instantiate</b>.
 
 <br>
@@ -330,7 +330,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
   - Scroll down to the <b>Instantiated smart contracts</b> section and find the "globalfinancing" contract in the list. Click on `Connect with SDK` from the overflow menu on the right side of the row.
   - From the dropdown for <b>MSP for connection</b> choose `Org1MSP`.
   - From the dropdown for <b>Certificate Authority</b> choose `Org1 CA`.
-  - Download the connection profile by scrolling down and clicking <b>Download Connection Profile</b>. This will download the connection json which we will use soon to establish connection.
+  - Download the connection profile by scrolling down and clicking <b>Download Connection Profile</b>. This will download the connection json which we will use to establish a connection between the Node.js web application and the Blockchain Network.
   - You can click <b>Close</b> once the download completes.
 
 <br>
@@ -342,8 +342,8 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 #### Create an application admin
   - Navigate to the <b>Nodes</b> tab in the left navigation, and under <b>Certificate Authorities</b>, choose your organization CA, <b>Org1 CA</b>.
   - Click on <b>Register user</b>.
-  - Give an <b>Enroll ID</b> of `app-admin`, and <b>Enroll Secret</b> of `app-adminpw`. Set the <b>Type</b> for this identity as `client`. We can specify to <b>Use root affiliation</b> or uncheck this field and select from any of the affiliated organizations from the drop-down list. We will leave the <b>Maximum enrollments</b> field blank. Click <b>Next</b>.
-  - Under <b>Attributes</b>, click on <b>Add attribute</b>. Give attribute as `hf.Registrar.Roles` = `*`. This will allow this identity to act as registrar and issues identities for our app. Click <b>Add-attribute</b>.
+  - Give an <b>Enroll ID</b> of `app-admin` and <b>Enroll Secret</b> of `app-adminpw`. Set the <b>Type</b> for this identity as `client`. We can specify to <b>Use root affiliation</b> or uncheck this field and select from any of the affiliated organizations from the drop-down list. We will leave the <b>Maximum enrollments</b> field blank. Click <b>Next</b>.
+  - Under <b>Attributes</b>, click on <b>Add attribute</b>. Give attribute as `hf.Registrar.Roles` = `*`. This will allow this identity to act as a registrar and issue identities for our app. Click <b>Add-attribute</b>.
   - Click <b>Register</b>.
 
 <br>
@@ -362,7 +362,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
     - The caName, which can be found in your connection json file under "organization" -> "Org1MSP" -> certificateAuthorities". This would be like an IP address and a port.
     - The peerName, which can be found in your connection json file under "organization" -> "Org1MSP" -> peers". This would be like an IP address and a port.
     - The ordererName, which can be found in your connection json file under "orderers". This would be like an IP address and a port.
-    - Update gateway discovery to `{ enabled: true, asLocalhost: false }` to connect to IBP.
+    - Update gateway discovery to `{ enabled: true, asLocalhost: false }` to connect to IBM Blockchain Platform.
 
 ```bash
  {
@@ -382,33 +382,37 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 ### 7. Run the application
 
-In a new terminal, navigate to the `web-app` directory:
+#### In a new terminal, navigate to the [`web-app`](https://github.com/sandhya-nayak/Global-Finance-on-Blockchain/tree/master/web-app) directory:
 
   ```bash
-  cd global-financing-blockchain/web-app/
+  cd Global-Finance-on-Blockchain/web-app/
   ```
 
-  Build the node dependencies:
+#### Build the node dependencies:
+
   ```bash
   npm install
   ```
   
-  Enroll the admin and add identity to the wallet:
+#### Enroll the admin and add identity to the wallet:
   
-  **Note: This creates public and private key files for the app-admin in the [_idwallet folder](web-app/controller/restapi/features/fabric/_idwallet). If a folder named "app-admin" exists in the "_idwallet" folder, then the following command will not enroll the app-admin as it already exists in the wallet. Remove the app-admin folder and then run the following command.**
+  **Note: This creates public and private key files for the app-admin in the _idwallet folder inside the [fabric folder](web-app/controller/restapi/features/fabric). If a folder named "app-admin" exists in the "_idwallet" folder, then the following command will not enroll the app-admin as it already exists in the wallet. Remove the app-admin folder and then run the following command.**
   
   ```bash
   node enrollAdmin.js
   ```
 
-  Run the application:
+#### Run the application:
+
   ```bash
   npm start
   ```
 
+Main page of application:
 <div style='border: 2px solid #f00;'>
   <img width="1000" src="docs/doc-images/app-view.png">
 </div>
+
 
 Unified member's view:
 <div style='border: 2px solid #f00;'>
@@ -417,8 +421,8 @@ Unified member's view:
 
 
 # Extending the code pattern
-This application can be expanded in a couple of ways:
-* Create a wallet for every member and use the member's wallet to interact with the application.
+This application can be extended by:
+* Creating a wallet for every member and using the member's wallet to interact with the application.
 
 
 # Links
