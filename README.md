@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/sandhya-nayak/Global-Finance-on-Blockchain.svg?branch=master)](https://travis-ci.org/sandhya-nayak/Global-Finance-on-Blockchain)
+[![Build Status](https://travis-ci.org/IBM/Global-Finance-on-Blockchain.svg?branch=master)](https://travis-ci.org/IBM/Global-Finance-on-Blockchain)
 
 # Global Finance on Blockchain
 
@@ -77,7 +77,7 @@ Follow these steps to set up and run this code pattern. The steps are described 
 Clone this repository in a folder your choice:
 
 ```
-git clone https://github.com/sandhya-nayak/Global-Finance-on-Blockchain.git
+git clone https://github.com/IBM/Global-Finance-on-Blockchain.git
 ```
 
 ### 2. Package the smart contract
@@ -382,7 +382,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 ### 7. Run the application
 
-#### In a new terminal, navigate to the [`web-app`](https://github.com/sandhya-nayak/Global-Finance-on-Blockchain/tree/master/web-app) directory:
+#### In a new terminal, navigate to the [`web-app`](web-app) directory:
 
   ```bash
   cd Global-Finance-on-Blockchain/web-app/
