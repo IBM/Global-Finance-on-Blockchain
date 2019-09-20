@@ -1,6 +1,6 @@
 {
     "name": "globalfinancing",
-    "version": "0.0.2",
+    "version": "0.0.1",
     "description": "Global Financing Contract",
     "main": "index.js",
     "engines": {
