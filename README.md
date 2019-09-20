@@ -49,12 +49,23 @@ When you have completed this code pattern, you will understand how to:
 * [Node.js](https://nodejs.org/en/) is an open source, cross-platform JavaScript run-time environment that executes server-side JavaScript code.
 * [Bootstrap](https://getbootstrap.com/) is an open source toolkit for developing with HTML, CSS, and JavaScript.
 
+
 ## Prerequisites
 
 * [IBM Cloud account](https://cloud.ibm.com/registration/?target=%2Fdashboard%2Fapps)
 * [Node v8.x or greater and npm v5.x or greater](https://nodejs.org/en/download/)
 * [VSCode version 1.26 or greater](https://code.visualstudio.com)
 * [IBM Blockchain Platform Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform)
+
+
+# Watch the video - Introduction and Demo
+
+[![](docs/doc-images/GFoB1.png)](https://www.youtube.com/watch?v=ORYuHPoCqLE)
+
+
+# Watch the video - Setup blockchain network
+
+[![](docs/doc-images/GFoB2.png)](https://www.youtube.com/watch?v=hFB1Mqr0es8)
 
 
 # Running the application
