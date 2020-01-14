@@ -59,7 +59,7 @@ exports.getRegistries = function(req, res, next)
         [ 'Seller' ],
         [ 'Shipper' ]
     ];
-    res.send({'result': 'success', 'registries': allRegistries});
+    res.send({result: 'success', registries: allRegistries});
 
 };
 
@@ -87,7 +87,7 @@ exports.getMembers = async function(req, res, next) {
         if (!userExists) {
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the enrollAdmin.js before retrying');
-            res.send({'error': 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
+            res.send({error: 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
         }
 
         // A gateway defines the peers used to access Fabric networks
@@ -138,7 +138,7 @@ exports.getMembers = async function(req, res, next) {
         }
             break;
         default:
-            res.send({'error': 'body registry not found'});
+            res.send({error: 'body registry not found'});
         }
 
         // Get state of the members
@@ -154,12 +154,12 @@ exports.getMembers = async function(req, res, next) {
         console.log('Disconnect from Fabric gateway.');
         console.log('getMembers Complete');
         await gateway.disconnect();
-        res.send({'result': 'success', 'members': allMembers});
+        res.send({result: 'success', members: allMembers});
 
     } catch (error) {
         console.log(`Error processing transaction. ${error}`);
         console.log(error.stack);
-        res.send({'error': error.stack});
+        res.send({error: error.stack});
     }
 };
 
@@ -188,7 +188,7 @@ exports.getAssets = async function(req, res, next) {
         if (!userExists) {
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the enrollAdmin.js before retrying');
-            res.send({'error': 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
+            res.send({error: 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
         }
 
         // A gateway defines the peers used to access Fabric networks
@@ -227,12 +227,12 @@ exports.getAssets = async function(req, res, next) {
         console.log('Disconnect from Fabric gateway.');
         console.log('getAssets Complete');
         await gateway.disconnect();
-        res.send({'result': 'success', 'orders': allOrders});
+        res.send({result: 'success', orders: allOrders});
 
     } catch (error) {
         console.log(`Error processing transaction. ${error}`);
         console.log(error.stack);
-        res.send({'error': error.stack});
+        res.send({error: error.stack});
     }
 };
 
@@ -261,7 +261,7 @@ exports.addMember = async function(req, res, next) {
         if (!userExists) {
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the enrollAdmin.js before retrying');
-            res.send({'error': 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
+            res.send({error: 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
         }
 
         // A gateway defines the peers used to access Fabric networks
@@ -302,12 +302,12 @@ exports.addMember = async function(req, res, next) {
         }
             break;
         default:
-            res.send({'error': 'body type not found'});
+            res.send({error: 'body type not found'});
         }
 
         for (let member of members) {
             if (member === req.body.id) {
-                res.send({'error': 'member id already exists'});
+                res.send({error: 'member id already exists'});
             }
         }
 
@@ -332,7 +332,7 @@ exports.addMember = async function(req, res, next) {
     } catch (error) {
         console.log(`Error processing transaction. ${error}`);
         console.log(error.stack);
-        res.send({'error': error.stack});
+        res.send({error: error.stack});
     }
 
 };

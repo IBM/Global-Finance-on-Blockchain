@@ -8,7 +8,8 @@
         "npm": ">=5"
     },
     "scripts": {
-        "start": "fabric-chaincode-node start"
+        "start": "fabric-chaincode-node start",
+        "lint": "eslint --ignore-path ../.eslintignore ."
     },
     "engineStrict": true,
     "author": "Raheel Zubairy",
@@ -16,5 +17,8 @@
     "dependencies": {
         "fabric-contract-api": "~1.4.0",
         "fabric-shim": "~1.4.0"
+    },
+    "devDependencies": {
+        "eslint": "^6.8.0"
     }
 }

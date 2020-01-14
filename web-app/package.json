@@ -23,8 +23,8 @@
     "cfenv": "^1.2.2",
     "connect-busboy": "0.0.2",
     "cookie-parser": "^1.4.3",
-    "date-format": "",
-    "ejs": "",
+    "date-format": "^3.0.0",
+    "ejs": "^3.0.1",
     "express": "^4.15.4",
     "fabric-client": "^1.4.3",
     "fabric-network": "~1.4.0",
@@ -34,6 +34,6 @@
     "os": "^0.1.1",
     "path": "^0.12.7",
     "sleep": "^5.1.1",
-    "websocket": "^1.0.24"
+    "websocket": "^1.0.31"
   }
 }
