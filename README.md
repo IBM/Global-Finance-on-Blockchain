@@ -27,19 +27,19 @@ When you have completed this code pattern, you will understand how to:
 # Architecture flow
 
 <p align="center">
-  <img src="docs/doc-images/arch-diagram.png">
+  <img src="https://user-images.githubusercontent.com/8854447/72450730-d5c8ad80-3788-11ea-8992-1e0e81d8967c.png">
 </p>
 
 1. The Blockchain Operator clones the GitHub repo to obtain the Global Finance on Blockchain smart contract.
 2. The Blockchain Operator uses the IBM Blockchain Platform Extension for VS Code to package the smart contract.
-3. The Blockchain Operator sets up and launches the IBM Blockchain Platform 2.0 service.
-4. The IBM Blockchain Platform 2.0 enables the creation of a Hyperledger Fabric network onto a IBM Kubernetes Service, enabling installation and instantiation of the Global Finance on Blockchain smart contract on the network.
-5. The Users (Buyers, Sellers, Providers, Shippers and Finance Companies) use the Node.js application which in turn uses the Fabric SDK to interact with the deployed network on IBM Blockchain Platform 2.0 and issue transactions.
+3. The Blockchain Operator sets up and launches the IBM Blockchain Platform service.
+4. The IBM Blockchain Platform enables the creation of a Hyperledger Fabric network onto a IBM Cloud Kubernetes Service, enabling installation and instantiation of the Global Finance on Blockchain smart contract on the network.
+5. The Users (Buyers, Sellers, Providers, Shippers and Finance Companies) use the Node.js application which in turn uses the Fabric SDK to interact with the deployed network on IBM Blockchain Platform and issue transactions.
 
 
 # Included components
 
-*   [IBM Blockchain Platform 2.0](https://www.ibm.com/cloud/blockchain-platform) gives you total control of your blockchain network with a user interface that can simplify and accelerate your journey to deploy and manage blockchain components on the IBM Cloud Kubernetes Service.
+*   [IBM Blockchain Platform](https://www.ibm.com/cloud/blockchain-platform) gives you total control of your blockchain network with a user interface that can simplify and accelerate your journey to deploy and manage blockchain components on the IBM Cloud Kubernetes Service.
 *   [IBM Cloud Kubernetes Service](https://www.ibm.com/cloud/container-service) creates a cluster of compute hosts and deploys highly available containers. A Kubernetes cluster lets you securely manage the resources that you need to quickly deploy, update, and scale applications.
 *   [IBM Blockchain Platform Extension for VS Code](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform) is designed to assist users in developing, testing, and deploying smart contracts - including connecting to Hyperledger Fabric environments.
 
@@ -60,12 +60,12 @@ When you have completed this code pattern, you will understand how to:
 
 # Watch the video - Introduction and Demo
 
-[![](docs/doc-images/GFoB1.png)](https://www.youtube.com/watch?v=ORYuHPoCqLE)
+[![](https://user-images.githubusercontent.com/8854447/72451022-4f609b80-3789-11ea-94f6-41218b1d1019.png)](https://www.youtube.com/watch?v=ORYuHPoCqLE)
 
 
 # Watch the video - Setup blockchain network
 
-[![](docs/doc-images/GFoB2.png)](https://www.youtube.com/watch?v=hFB1Mqr0es8)
+[![](https://user-images.githubusercontent.com/8854447/72451023-4f609b80-3789-11ea-85e6-0f36aad4dc74.png)](https://www.youtube.com/watch?v=hFB1Mqr0es8)
 
 
 # Running the application
@@ -98,23 +98,23 @@ We will use the IBM Blockchain Platform extension on VS Code to package the smar
 * Open Visual Studio code and open the `contract` folder from `Global-Finance-on-Blockchain` repository that was cloned earlier. 
    **It is important that you are opening the `contract` folder and not the entire `Global-Finance-on-Blockchain` directory; otherwise you will see an error that states that it doesn't understand what programming language you are using.**
 
-* Press the `F1` key to see the different VS code options. Choose `IBM Blockchain Platform: Package a Smart Contract Project`.
+* Press the `F1` key to see the different VS code options. Choose `IBM Blockchain Platform: Package Open Project`.
 
 <p align="center">
-  <img src="docs/doc-images/vs-code-options.png">
+  <img src="https://user-images.githubusercontent.com/8854447/71910509-05036d00-3140-11ea-8b15-7c8aeb403974.png">
 </p>
 
 * Click the `IBM Blockchain Platform` extension button on the left. This will show the packaged contracts on top and the blockchain connections on the bottom.
 
 <p align="center">
-  <img height="500" src="docs/doc-images/ibm-blockchain-extension.png">
+  <img height="500" src="https://user-images.githubusercontent.com/8854447/72377051-0f43df00-36dd-11ea-8e54-93c1d21f1853.png">
 </p>
 
 * Next, right click on the packaged contract (in this case, select globalfinancing@0.0.1) to export it and choose `Export Package`.
 
-* Choose a location on your machine and save the `.cds` file. We will use this packaged smart contract later to deploy on the IBM Blockchain Platform 2.0 service.
+* Choose a location on your machine and save the `.cds` file. We will use this packaged smart contract later to deploy on the IBM Blockchain Platform service.
 
-Now, we will start setting up and configuring our Hyperledger Fabric network on the IBM Cloud.
+Now, we will start setting up the different services required for configuring our Hyperledger Fabric network on the IBM Cloud and for running our application using this network.
 
 ### 3. Create IBM Cloud services
 
@@ -122,15 +122,23 @@ Now, we will start setting up and configuring our Hyperledger Fabric network on 
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/create-ibm-kubernetes-service.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71910506-046ad680-3140-11ea-9f4b-8bcb4d2a651b.gif">
 </p>
 <br>
 
-* Create the [IBM Blockchain Platform 2.0](https://cloud.ibm.com/catalog/services/blockchain-platform) service on the IBM Cloud. You can find the service in the `Catalog`, and give it a name.
+* Create the [IBM Cloud Object Storage](https://cloud.ibm.com/catalog/services/cloud-object-storage) service on the IBM Cloud. You can find the service in the `Catalog`, and give it a name.
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/create-ibm-blockchain-2-service.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71918961-80b9e580-3151-11ea-8efc-8d4a08b55380.gif">
+</p>
+<br>
+
+* Create the [IBM Blockchain Platform](https://cloud.ibm.com/catalog/services/blockchain-platform) service on the IBM Cloud. You can find the service in the `Catalog`, and give it a name.
+
+<br>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/8854447/71910502-046ad680-3140-11ea-9853-3598b9363d91.gif">
 </p>
 <br>
 
@@ -138,15 +146,17 @@ Now, we will start setting up and configuring our Hyperledger Fabric network on 
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/deploy-blockchain-on-cluster.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71910501-046ad680-3140-11ea-8440-9d2fef0be426.gif">
 </p>
 <br>
 
 * Once the Blockchain Platform is deployed on the Kubernetes cluster, you can launch the console to start configuring your blockchain network.
 
+
 ### 4. Build a network
 
 We will build a network as provided by the IBM Blockchain Platform [documentation](https://cloud.ibm.com/docs/services/blockchain/howto?topic=blockchain-ibp-console-build-network#ibp-console-build-network). This will include creating a channel with a single peer organization with its own MSP and CA (Certificate Authority), and an orderer organization with its own MSP and CA. We will create the respective identities to deploy peers and operate nodes.
+
 
 #### Create your peer organization CA
   - Navigate to the <b>Nodes</b> tab in the left navigation and click <b>Add Certificate Authority</b>.
@@ -157,21 +167,35 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/create-peer-org1-ca.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71913565-bb1d8580-3145-11ea-9eaa-1b4e8a10e985.gif">
 </p>
 <br>
 
 
-#### Use peer organization CA to register identities
-  - Select the <b>Org1 CA</b> Certificate Authority that we created.
-  - First, we will register an admin for our organization "org1". Click on the <b>Register User</b> button. Give an <b>Enroll ID</b> of `org1admin`, and <b>Enroll Secret</b> of `org1adminpw`. Set the <b>Type</b> for this identity as `client`. We can specify to <b>Use root affiliation</b> or uncheck this field and select from any of the affiliated organizations from the drop-down list. We will leave the <b>Maximum enrollments</b> field blank. Click <b>Next</b>.
+#### Associate the peer organization CA admin identity
+  - In the Nodes tab, select the <b>Org1 CA</b> once it is running (indicated by the green box in the tile).
+  - Click <b>Associate identity</b> on the CA overview panel.
+  - On the side panel, select <b>Enroll ID</b>. 
+  - Provide an <b>Enroll ID</b> of `admin` and an <b>Enroll secret</b> of `adminpw`. Use the default value of `Org1 CA Identity` for the <b>Identity display name</b>.
+  - Click <b>Associate identity</b> to add the identity into your wallet and associate the admin identity with the <b>Org1 CA</b>.
+
+<br>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/8854447/71913744-1e0f1c80-3146-11ea-85e4-eea5280aa8e9.gif">
+</p>
+<br>
+
+
+#### Use peer organization CA to register the peer and org1 admin identities
+  - Select the <b>Org1 CA</b> Certificate Authority and ensure the `admin` identity that was created for the CA is visible in the table.
+  - We will register an admin for our organization "org1". Click on the <b>Register User</b> button. Give an <b>Enroll ID</b> of `org1admin`, and <b>Enroll Secret</b> of `org1adminpw`. Set the <b>Type</b> for this identity as `client`. We can specify to <b>Use root affiliation</b> or uncheck this field and select from any of the affiliated organizations from the drop-down list. We will leave the <b>Maximum enrollments</b> field blank. Click <b>Next</b>.
   - We will not be adding any attributes to this user. Click <b>Register user</b>.
   - We will repeat the process to create an identity of the peer. Click on the <b>Register User</b> button. Give an <b>Enroll ID</b> of `peer1`, and <b>Enroll Secret</b> of `peer1pw`. Set the <b>Type</b> for this identity as `peer`. We can specify to <b>Use root affiliation</b> or uncheck this field and select from any of the affiliated organizations from the drop-down list. Click <b>Next</b>.
   - We will not be adding any attributes to this user. Click <b>Register user</b>.
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/org1-ca-register-identities.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71913929-7c3bff80-3146-11ea-9930-a455f1e45fe2.gif">
 </p>
 <br>
 
@@ -185,7 +209,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/peer-org-msp-def.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71914115-e5bc0e00-3146-11ea-891c-6422bc4c2c4e.gif">
 </p>
 <br>
 
@@ -194,14 +218,13 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
   - Navigate to the <b>Nodes</b> tab in the left navigation and click <b>Add peer</b>.
   - Click <b>Create an IBM Cloud peer</b> and then click <b>Next</b>.
   - Give the <b>Peer display name</b> as `Peer Org1` and click <b>Next</b>.
-  - On the next screen, select `Org1 CA` as the <b>Certificate Authority</b>. Then, give the <b>Peer enroll ID</b> and <b>Peer enroll secret</b> for the peer identity that you created for your peer, that is, `peer1`, and `peer1pw`. Select the <b>Organization MSP</b> as `Org1MSP`, from the drop-down list and click <b>Next</b>.
-  - Give the <b>TLS CA enroll ID</b> as `admin`, and <b>TLS CA enroll secret</b> as `adminpw`; these same values were provided as the Enroll ID and Enroll secret when we created the CA. Leave the <b>TLS CSR hostname</b> blank. Click <b>Next</b>.
+  - On the next screen, select `Org1 CA` as the <b>Certificate Authority</b>. Then, give the <b>Peer enroll ID</b> and <b>Peer enroll secret</b> for the peer identity that you created for your peer, that is, `peer1`, and `peer1pw`. Select the <b>Organization MSP</b> as `Org1MSP`, from the drop-down list. Leave the <b>TLS CSR hostname</b> blank. Click <b>Next</b>.
   - The next step is to Associate an identity with this peer to make it the admin of your peer. Select your peer admin identity `Org1 Admin` and click <b>Next</b>.
   - Review the summary and click <b>Add peer</b>.
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/create-peer.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71914297-53683a00-3147-11ea-9ecb-bace14e5e5c5.gif">
 </p>
 <br>
 
@@ -215,21 +238,35 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/orderer-org-ca.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71914392-86123280-3147-11ea-9a6f-b6eddab790b1.gif">
+</p>
+<br>
+
+
+#### Associate the orderer organization CA admin identity
+  - In the Nodes tab, select the <b>Orderer CA</b> once it is running (indicated by the green box in the tile).
+  - Click <b>Associate identity</b> on the CA overview panel.
+  - On the side panel, select <b>Enroll ID</b>. 
+  - Provide an <b>Enroll ID</b> of `admin` and an <b>Enroll secret</b> of `adminpw`. Use the default value of `Orderer CA Identity` for the <b>Identity display name</b>.
+  - Click <b>Associate identity</b> to add the identity into your wallet and associate the admin identity with the <b>Orderer CA</b>.
+
+<br>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/8854447/71914593-e73a0600-3147-11ea-8944-1c5e2bbecfba.gif">
 </p>
 <br>
 
 
 #### Use orderer organization CA to register orderer and orderer admin identities
-  - Select the <b>Orderer CA</b> Certificate Authority that we created.
-  - First, we will register an admin for the "orderer" organization. Click on the <b>Register User</b> button. Give an <b>Enroll ID</b> of `ordereradmin`, and <b>Enroll Secret</b> of `ordereradminpw`. Set the <b>Type</b> for this identity as `client`. We can specify to <b>Use root affiliation</b> or uncheck this field and select from any of the affiliated organizations from the drop-down list. We will leave the <b>Maximum enrollments</b> field blank. Click <b>Next</b>.
+  - Select the <b>Orderer CA</b> Certificate Authority and ensure the `admin` identity that was created for the CA is visible in the table.
+  - We will register an admin for the "orderer" organization. Click on the <b>Register User</b> button. Give an <b>Enroll ID</b> of `ordereradmin`, and <b>Enroll Secret</b> of `ordereradminpw`. Set the <b>Type</b> for this identity as `client`. We can specify to <b>Use root affiliation</b> or uncheck this field and select from any of the affiliated organizations from the drop-down list. We will leave the <b>Maximum enrollments</b> field blank. Click <b>Next</b>.
   - We will not be adding any attributes to this user. Click <b>Register user</b>.
-  - We will repeat the process to create an identity of the peer. Click on the <b>Register User</b> button. Give an <b>Enroll ID</b> of `orderer1`, and <b>Enroll Secret</b> of `orderer1pw`. Set the <b>Type</b> for this identity as `peer`. We can specify to <b>Use root affiliation</b> or uncheck this field and select from any of the affiliated organizations from the drop-down list. Click <b>Next</b>.
+  - We will repeat the process to create an identity of the peer. Click on the <b>Register User</b> button. Give an <b>Enroll ID</b> of `orderer1`, and <b>Enroll Secret</b> of `orderer1pw`. Set the <b>Type</b> for this identity as `orderer`. We can specify to <b>Use root affiliation</b> or uncheck this field and select from any of the affiliated organizations from the drop-down list. Click <b>Next</b>.
   - We will not be adding any attributes to this user. Click <b>Register user</b>.
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/orderer-ca-register-identities.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71914721-35e7a000-3148-11ea-8db6-2d3584fca238.gif">
 </p>
 <br>
 
@@ -243,7 +280,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/orderer-org-msp-def.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71914893-95de4680-3148-11ea-8a9d-5952c26c8cdc.gif">
 </p>
 <br>
 
@@ -253,14 +290,13 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
   - Navigate to the <b>Nodes</b> tab in the left navigation and click <b>Add ordering service</b>.
   - Click <b>Create an IBM Cloud Ordering service</b> and then click <b>Next</b>.
   - Give the <b>Ordering service display name</b> as `Orderer` and click <b>Next</b>.
-  - On the next screen, select `Orderer CA` as the <b>Certificate Authority</b>. Then, give the <b>Ordering service enroll ID</b> and <b>Ordering service enroll secret</b> for the peer identity that you created for your orderer, that is, `orderer1`, and `orderer1pw`. Select the <b>Organization MSP</b> as `OrdererMSP`, from the drop-down list and click <b>Next</b>.
-  - Give the <b>TLS CA enroll ID</b> as `admin`, and <b>TLS CA enroll secret</b> as `adminpw`; these same values were provided as the Enroll ID and Enroll secret when we created the CA. Leave the <b>TLS CSR hostname</b> blank. Click <b>Next</b>.
+  - On the next screen, select `Orderer CA` as the <b>Certificate Authority</b>. Then, give the <b>Ordering service enroll ID</b> and <b>Ordering service enroll secret</b> for the peer identity that you created for your orderer, that is, `orderer1`, and `orderer1pw`. Select the <b>Organization MSP</b> as `OrdererMSP`, from the drop-down list. Leave the <b>TLS CSR hostname</b> blank. Click <b>Next</b>.
   - The next step is to Associate an identity with this peer to make it the admin of your peer. Select your peer admin identity `Orderer Admin` and click <b>Next</b>.
   - Review the summary and click <b>Add ordering service</b>.
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/create-orderer.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71915205-42b8c380-3149-11ea-8050-5edfd461ae10.gif">
 </p>
 <br>
 
@@ -273,7 +309,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/add-org-orderer.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71915342-88758c00-3149-11ea-98e2-2ed00dc9c8c3.gif">
 </p>
 <br>
 
@@ -288,7 +324,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/create-channel.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71915595-15b8e080-314a-11ea-9843-d7df9be30fe5.gif">
 </p>
 <br>
 
@@ -302,7 +338,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/join-channel.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/71915747-67fa0180-314a-11ea-984b-80deb0877d03.gif">
 </p>
 <br>
 
@@ -317,13 +353,13 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/install-smart-contract.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/72450152-df9de100-3787-11ea-9c5a-88cc95ea846b.gif">
 </p>
 <br>
 
 #### Instantiate smart contract
   - Under <b>Installed smart contracts</b>, find the smart contract from the list (**Note: ours is called globalfinancing**) installed on our peer and click <b>Instantiate</b> from the overflow menu on the right side of the row.
-  - On the side panel that opens, select the channel, `mychannel`  on which to instantiate the smart contract. Click <b>Next</b>.
+  - On the side panel that opens, select the channel, `mychannel` on which to instantiate the smart contract. Click <b>Next</b>.
   - Select the organization members to be included in the endorsement policy. In our case, we need to select `Org1MSP`. Click <b>Next</b>.
   - We can skip the <b>Setup private data collection</b> step and simply click <b>Next</b>.
   - Give the <b>Function name</b> of `instantiate` and leave <b>Arguments</b> blank. **Note: `instantiate` is the method in the `globalfinance.js` contract file that initiates the smart contracts on the peer. Some may name this `initLedger`**.
@@ -331,7 +367,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/instantiate-smart-contract.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/72450153-df9de100-3787-11ea-85c7-8948495ba251.gif">
 </p>
 <br>
 
@@ -346,7 +382,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/connect-with-sdk.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/72450150-df9de100-3787-11ea-8b01-1ee5bc7ad8d1.gif">
 </p>
 <br>
 
@@ -354,12 +390,12 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
   - Navigate to the <b>Nodes</b> tab in the left navigation, and under <b>Certificate Authorities</b>, choose your organization CA, <b>Org1 CA</b>.
   - Click on <b>Register user</b>.
   - Give an <b>Enroll ID</b> of `app-admin` and <b>Enroll Secret</b> of `app-adminpw`. Set the <b>Type</b> for this identity as `client`. We can specify to <b>Use root affiliation</b> or uncheck this field and select from any of the affiliated organizations from the drop-down list. We will leave the <b>Maximum enrollments</b> field blank. Click <b>Next</b>.
-  - Under <b>Attributes</b>, click on <b>Add attribute</b>. Give attribute as `hf.Registrar.Roles` = `*`. This will allow this identity to act as a registrar and issue identities for our app. Click <b>Add-attribute</b>.
-  - Click <b>Register</b>.
+  - Under <b>Attributes</b>, click on <b>Add attribute</b>. Give attribute as `hf.Registrar.Roles` = `*`. This will allow this identity to act as a registrar and issue identities for our app. Click <b>Add attribute</b>.
+  - Click <b>Register user</b>.
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/register-app-admin.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/72450922-25a77480-3789-11ea-9ce3-2319e7e11008.gif">
 </p>
 <br>
 
@@ -421,13 +457,13 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 Main page of application:
 <div style='border: 2px solid #f00;'>
-  <img width="1000" src="docs/doc-images/app-view.png">
+  <img width="1000" src="https://user-images.githubusercontent.com/8854447/72450728-d5c8ad80-3788-11ea-83c4-1f0cf1c8e432.png">
 </div>
 
 
 Unified member's view:
 <div style='border: 2px solid #f00;'>
-  <img width="1000" src="docs/doc-images/app-unified-view.png">
+  <img width="1000" src="https://user-images.githubusercontent.com/8854447/72450727-d5c8ad80-3788-11ea-8b40-549187431d33.png">
 </div>
 
 
