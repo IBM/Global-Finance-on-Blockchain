@@ -58,16 +58,6 @@ When you have completed this code pattern, you will understand how to:
 * [IBM Blockchain Platform Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform)
 
 
-# Watch the video - Introduction and Demo
-
-[![](https://user-images.githubusercontent.com/8854447/72451022-4f609b80-3789-11ea-94f6-41218b1d1019.png)](https://www.youtube.com/watch?v=ORYuHPoCqLE)
-
-
-# Watch the video - Setup blockchain network
-
-[![](https://user-images.githubusercontent.com/8854447/72451023-4f609b80-3789-11ea-85e6-0f36aad4dc74.png)](https://www.youtube.com/watch?v=hFB1Mqr0es8)
-
-
 # Running the application
 
 Follow these steps to set up and run this code pattern. The steps are described in detail below.
@@ -90,6 +80,7 @@ Clone this repository in a folder your choice:
 ```
 git clone https://github.com/IBM/Global-Finance-on-Blockchain.git
 ```
+
 
 ### 2. Package the smart contract
 
@@ -115,6 +106,7 @@ We will use the IBM Blockchain Platform extension on VS Code to package the smar
 * Choose a location on your machine and save the `.cds` file. We will use this packaged smart contract later to deploy on the IBM Blockchain Platform service.
 
 Now, we will start setting up the different services required for configuring our Hyperledger Fabric network on the IBM Cloud and for running our application using this network.
+
 
 ### 3. Create IBM Cloud services
 
@@ -349,6 +341,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 </p>
 <br>
 
+
 #### Instantiate smart contract
   - Under <b>Installed smart contracts</b>, find the smart contract from the list (**Note: ours is called globalfinancing**) installed on our peer and click <b>Instantiate</b> from the overflow menu on the right side of the row.
   - On the side panel that opens, select the channel, `mychannel` on which to instantiate the smart contract. Click <b>Next</b>.
@@ -362,6 +355,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
   <img src="https://user-images.githubusercontent.com/8854447/72450153-df9de100-3787-11ea-85c7-8948495ba251.gif">
 </p>
 <br>
+
 
 ## 6. Connect application to the network
 
@@ -377,6 +371,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
   <img src="https://user-images.githubusercontent.com/8854447/72450150-df9de100-3787-11ea-8b01-1ee5bc7ad8d1.gif">
 </p>
 <br>
+
 
 #### Create an application admin
   - Navigate to the <b>Nodes</b> tab in the left navigation, and under <b>Certificate Authorities</b>, choose your organization CA, <b>Org1 CA</b>.
@@ -427,12 +422,14 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
   cd Global-Finance-on-Blockchain/web-app/
   ```
 
+
 #### Build the node dependencies:
 
   ```bash
   npm install
   ```
-  
+
+
 #### Enroll the admin and add identity to the wallet:
   
   **Note: This creates public and private key files for the app-admin in the _idwallet folder inside the [fabric folder](web-app/controller/restapi/features/fabric). If a folder named "app-admin" exists in the "_idwallet" folder, then the following command will not enroll the app-admin as it already exists in the wallet. Remove the app-admin folder and then run the following command.**
@@ -440,6 +437,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
   ```bash
   node enrollAdmin.js
   ```
+
 
 #### Run the application:
 
