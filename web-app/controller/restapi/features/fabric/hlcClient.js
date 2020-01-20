@@ -70,7 +70,7 @@ exports.getMyOrders = async function (req, res, next) {
         if (!userExists) {
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the enrollAdmin.js before retrying');
-            res.send({'error': 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
+            res.send({error: 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
         }
 
         // A gateway defines the peers used to access Fabric networks
@@ -104,12 +104,12 @@ exports.getMyOrders = async function (req, res, next) {
         console.log('Disconnect from Fabric gateway.');
         console.log('getMyOrders Complete');
         await gateway.disconnect();
-        res.send({'result': 'success', 'orders': allOrders});
+        res.send({result: 'success', orders: allOrders});
 
     } catch (error) {
         console.log(`Error processing transaction. ${error}`);
         console.log(error.stack);
-        res.send({'error': error.stack});
+        res.send({error: error.stack});
     }
 };
 
@@ -158,7 +158,7 @@ exports.orderAction = async function (req, res, next) {
     {/*let reason = req.body.reason;*/}
     else {
         if ((req.body.action === 'Dispute') && ((typeof(req.body.reason) === 'undefined') || (req.body.reason.length <1) )){
-            res.send({'result': 'failed', 'error': 'no reason provided for dispute'});
+            res.send({result: 'failed', error: 'no reason provided for dispute'});
         }
     }
     if (svc.m_connection === null) {svc.createMessageSocket();}
@@ -171,7 +171,7 @@ exports.orderAction = async function (req, res, next) {
         if (!userExists) {
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the enrollAdmin.js before retrying');
-            res.send({'error': 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
+            res.send({error: 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
         }
 
         // A gateway defines the peers used to access Fabric networks
@@ -288,19 +288,19 @@ exports.orderAction = async function (req, res, next) {
             break;
         default :
             console.log('default entered for action: '+req.body.action);
-            res.send({'result': 'failed', 'error':' order '+req.body.orderNo+' unrecognized request: '+req.body.action});
+            res.send({result: 'failed', error:' order '+req.body.orderNo+' unrecognized request: '+req.body.action});
         }
 
         // Disconnect from the gateway
         console.log('Disconnect from Fabric gateway.');
         console.log('orderAction Complete');
         await gateway.disconnect();
-        res.send({'result': ' order '+req.body.orderNo+' successfully updated to '+req.body.action});
+        res.send({result: ' order '+req.body.orderNo+' successfully updated to '+req.body.action});
 
     } catch (error) {
         console.log(`Error processing transaction. ${error}`);
         console.log(error.stack);
-        res.send({'error': error.stack});
+        res.send({error: error.stack});
     }
 
 };
@@ -332,7 +332,7 @@ exports.addOrder = async function (req, res, next) {
         if (!userExists) {
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the enrollAdmin.js before retrying');
-            res.send({'error': 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
+            res.send({error: 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
         }
 
         // A gateway defines the peers used to access Fabric networks
@@ -367,12 +367,12 @@ exports.addOrder = async function (req, res, next) {
         console.log('Disconnect from Fabric gateway.');
         console.log('addOrder Complete');
         await gateway.disconnect();
-        res.send({'result': ' order '+orderNo+' successfully added'});
+        res.send({result: ' order '+orderNo+' successfully added'});
 
     } catch (error) {
         console.log(`Error processing transaction. ${error}`);
         console.log(error.stack);
-        res.send({'error': error.stack});
+        res.send({error: error.stack});
     }
 
 };

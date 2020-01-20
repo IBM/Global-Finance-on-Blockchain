@@ -28,9 +28,9 @@ const ccp = JSON.parse(ccpJSON);
 
 // setup the fabric network
 let channel = fabric_client.newChannel(channelName);
-let peer = fabric_client.newPeer(ccp.peers[peerName].url, {'pem': ccp.peers[peerName].tlsCACerts.pem});
+let peer = fabric_client.newPeer(ccp.peers[peerName].url, {pem: ccp.peers[peerName].tlsCACerts.pem});
 channel.addPeer(peer);
-let order = fabric_client.newOrderer(ccp.orderers[ordererName].url, {'pem': ccp.orderers[ordererName].tlsCACerts.pem});
+let order = fabric_client.newOrderer(ccp.orderers[ordererName].url, {pem: ccp.orderers[ordererName].tlsCACerts.pem});
 channel.addOrderer(order);
 
 let store_path = path.join(__dirname, '_idwallet', userName);
@@ -115,15 +115,15 @@ exports.getBlockchain = async function(req, res, next) {
         //console.log('returnBlockchain');
         //console.log(returnBlockchain);
         res.send({
-            'result': 'Success',
-            'returnBlockchain': returnBlockchain
+            result: 'Success',
+            returnBlockchain: returnBlockchain
         });
 
     } catch (error) {
         console.error(`Failed to get blockchain: ${error}`);
         console.log(error.stack);
         res.send({
-            'error': error.message
+            error: error.message
         });
     }
 };

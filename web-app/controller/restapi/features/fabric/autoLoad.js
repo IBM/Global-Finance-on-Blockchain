@@ -81,7 +81,7 @@ exports.autoLoad = async function autoLoad(req, res, next) {
         if (!userExists) {
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the enrollAdmin.js before retrying');
-            res.send({'error': 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
+            res.send({error: 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first'});
         }
 
         // A gateway defines the peers used to access Fabric networks
@@ -123,27 +123,27 @@ exports.autoLoad = async function autoLoad(req, res, next) {
 
             for (let buyer of buyers) {
                 if (buyer === member.id) {
-                    res.send({'error': 'member id already exists'});
+                    res.send({error: 'member id already exists'});
                 }
             }
             for (let seller of sellers) {
                 if (seller === member.id) {
-                    res.send({'error': 'member id already exists'});
+                    res.send({error: 'member id already exists'});
                 }
             }
             for (let provider of providers) {
                 if (provider === member.id) {
-                    res.send({'error': 'member id already exists'});
+                    res.send({error: 'member id already exists'});
                 }
             }
             for (let shipper of shippers) {
                 if (shipper === member.id) {
-                    res.send({'error': 'member id already exists'});
+                    res.send({error: 'member id already exists'});
                 }
             }
             for (let financeCo of financeCos) {
                 if (financeCo === member.id) {
-                    res.send({'error': 'member id already exists'});
+                    res.send({error: 'member id already exists'});
                 }
             }
 
@@ -188,7 +188,7 @@ exports.autoLoad = async function autoLoad(req, res, next) {
 
             for (let orderNo of allOrders) {
                 if (orderNo === order.id) {
-                    res.send({'error': 'order already exists'});
+                    res.send({error: 'order already exists'});
                 }
             }
 
@@ -204,12 +204,12 @@ exports.autoLoad = async function autoLoad(req, res, next) {
         console.log('Disconnect from Fabric gateway.');
         console.log('AutoLoad Complete');
         await gateway.disconnect();
-        res.send({'result': 'Success'});
+        res.send({result: 'Success'});
 
     } catch (error) {
         console.log(`Error processing transaction. ${error}`);
         console.log(error.stack);
-        res.send({'error': error.message});
+        res.send({error: error.message});
     }
 
 };
