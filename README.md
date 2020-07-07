@@ -2,6 +2,8 @@
 
 # Global Finance on Blockchain
 
+> **NOTE**: This developer pattern creates a blockchain network on *IBM Blockchain Platform version **2.5*** using the *Hyperledger Fabric version **1.4***.
+
 In this code pattern, we will be extending the [global-financing-blockchain](https://developer.ibm.com/patterns/global-financing-use-case-for-blockchain) code pattern by deploying the smart contract on a Hyperledger Fabric Network created on IBM Blockchain Platform instead of a local instance of the Hyperledger Fabric. This use case is inspired by the [RedBook tutorial](https://www.redbooks.ibm.com/Redbooks.nsf/RedbookAbstracts/crse0401.html?Open) by Bob Dill and uses the same application interface. It employs a Node.js smart contract and a Node.js web application.
 
 The Global Finance use case involves various members such as the Buyer, Seller, Provider, Shipper and Finance Company which perform many actions. Some of these actions are:
