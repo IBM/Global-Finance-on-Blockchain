@@ -17,7 +17,6 @@ const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
 
 let peerName = config.peerName;
-let ordererName = config.ordererName;
 let userName = config.appAdmin;
 let channelName = config.channel_name;
 
@@ -26,11 +25,16 @@ const ccpPath = path.join(configDirectory, ccpFile);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
+const ordererFile = config.orderer_file;
+const ordererPath = path.join(configDirectory, ordererFile);
+const ordererJSON = fs.readFileSync(ordererPath, 'utf8');
+const ordererDetails = JSON.parse(ordererJSON);
+
 // setup the fabric network
 let channel = fabric_client.newChannel(channelName);
 let peer = fabric_client.newPeer(ccp.peers[peerName].url, {pem: ccp.peers[peerName].tlsCACerts.pem});
 channel.addPeer(peer);
-let order = fabric_client.newOrderer(ccp.orderers[ordererName].url, {pem: ccp.orderers[ordererName].tlsCACerts.pem});
+let order = fabric_client.newOrderer(ordererDetails.api_url, {pem: ordererDetails.tls_cert});
 channel.addOrderer(order);
 
 let store_path = path.join(__dirname, '_idwallet', userName);
